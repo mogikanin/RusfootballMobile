@@ -10,7 +10,7 @@ namespace RusfootballMobile.ViewModels
     {
         public ItemsViewModel()
         {
-            Title = "Browse";
+            Title = "Главная";
             Items = new ObservableCollection<ShortStory>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand(false));
             LoadMoreItemsCommand = new Command(async () => await ExecuteLoadItemsCommand(true));

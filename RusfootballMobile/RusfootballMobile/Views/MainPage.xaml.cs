@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms.Xaml;
+﻿using System;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace RusfootballMobile.Views
 {
@@ -8,6 +10,23 @@ namespace RusfootballMobile.Views
 		public MainPage ()
 		{
 			InitializeComponent ();
-		}
-	}
+
+		    masterPage.ListView.ItemSelected += OnItemSelected;
+
+		    if (Device.RuntimePlatform == Device.UWP)
+		    {
+		        MasterBehavior = MasterBehavior.Popover;
+		    }
+        }
+
+        private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem is MasterPageItem item)
+            {
+                Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));
+                masterPage.ListView.SelectedItem = null;
+                IsPresented = false;
+            }
+        }
+    }
 }

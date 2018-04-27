@@ -1,6 +1,4 @@
-﻿using System;
-
-using RusfootballMobile.Models;
+﻿using RusfootballMobile.Models;
 
 namespace RusfootballMobile.ViewModels
 {

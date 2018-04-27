@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:RusfootballMobile.Views;assembly=RusfootballMobile"
+             x:Class="RusfootballMobile.Views.MasterPage"
+             Padding="0,40,0,0"
+             Icon="hamburger.png"
+             Title="Rusfootball Mobile">
+    <StackLayout>
+        <ListView x:Name="listView">
+            <ListView.ItemsSource>
+                <x:Array Type="{x:Type views:MasterPageItem}">
+                    <views:MasterPageItem Title="Главная" TargetType="{x:Type views:ItemsPage}" />
+                    <views:MasterPageItem Title="Лента новостей" TargetType="{x:Type views:ItemsPage}" />
+                    <views:MasterPageItem Title="О программе" TargetType="{x:Type views:AboutPage}" />
+                </x:Array>
+            </ListView.ItemsSource>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="5,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding IconSource, Mode=OneWay}" />
+                            <Label Grid.Column="1" Text="{Binding Title, Mode=OneWay}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

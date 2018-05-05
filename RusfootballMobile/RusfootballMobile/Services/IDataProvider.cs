@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace RusfootballMobile.Services
 {
-    public interface IDataStore<T>
+    public interface IDataProvider<T>
     {
         Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh, bool nextPage);
     }

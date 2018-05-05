@@ -2,12 +2,12 @@
 
 namespace RusfootballMobile.ViewModels
 {
-    public class ItemDetailViewModel : BaseViewModel
+    public class ItemDetailViewModel : ViewModelBase
     {
-        public ShortStory Item { get; set; }
-        public ItemDetailViewModel(ShortStory item = null)
+        public IStory Item { get; set; }
+        public ItemDetailViewModel(IStory item = null)
         {
-            Title = item?.Text;
+            Title = item?.Details.ToString();
             Item = item;
         }
     }

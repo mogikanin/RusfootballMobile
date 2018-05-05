@@ -15,7 +15,7 @@ namespace RusfootballMobile.Tests
         [Test]
         public async Task Test()
         {
-            var store = new MockDataStore();
+            var store = new LastNewsProvider();
             var res = await store.GetItemsAsync(true, false);
         }
     }

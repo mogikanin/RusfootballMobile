@@ -2,21 +2,24 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using RusfootballMobile.Models;
+using RusfootballMobile.Services;
 
 namespace RusfootballMobile.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public abstract class ItemsViewModelBase<T> : ViewModelBase
     {
-        public ItemsViewModel()
+        private IDataProvider<T> DataProvider => DependencyService.Get<IDataProvider<T>>() ?? GetProvider();
+
+        protected ItemsViewModelBase()
         {
-            Title = "Главная";
-            Items = new ObservableCollection<ShortStory>();
+            Items = new ObservableCollection<T>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand(false));
             LoadMoreItemsCommand = new Command(async () => await ExecuteLoadItemsCommand(true));
         }
 
-        public ObservableCollection<ShortStory> Items { get; }
+        protected abstract IDataProvider<T> GetProvider();
+
+        public ObservableCollection<T> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command LoadMoreItemsCommand { get; }
 
@@ -31,7 +34,7 @@ namespace RusfootballMobile.ViewModels
                 {
                     Items.Clear();
                 }
-                var items = await DataStore.GetItemsAsync(true, nextPage);
+                var items = await DataProvider.GetItemsAsync(true, nextPage);
                 foreach (var item in items)
                 {
                     Items.Add(item);
@@ -46,5 +49,6 @@ namespace RusfootballMobile.ViewModels
                 IsBusy = false;
             }
         }
+
     }
 }

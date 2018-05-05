@@ -10,8 +10,8 @@
         <ListView x:Name="listView">
             <ListView.ItemsSource>
                 <x:Array Type="{x:Type views:MasterPageItem}">
-                    <views:MasterPageItem Title="Главная" TargetType="{x:Type views:ItemsPage}" />
-                    <views:MasterPageItem Title="Лента новостей" TargetType="{x:Type views:ItemsPage}" />
+                    <views:MasterPageItem Title="Главная" TargetType="{x:Type views:ShortStoriesItemsPage}" />
+                    <views:MasterPageItem Title="Лента новостей" TargetType="{x:Type views:LastNewsItemsPage}" />
                     <views:MasterPageItem Title="О программе" TargetType="{x:Type views:AboutPage}" />
                 </x:Array>
             </ListView.ItemsSource>

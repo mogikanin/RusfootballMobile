@@ -6,20 +6,20 @@ using RusfootballMobile.ViewModels;
 namespace RusfootballMobile.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ItemsPage
-	{
-	    private readonly ItemsViewModel _viewModel;
+	public partial class ShortStoriesItemsPage
+    {
+	    private readonly ShortStoriesItemsVM _viewModel;
 
-        public ItemsPage()
+        public ShortStoriesItemsPage()
         {
             InitializeComponent();
-            BindingContext = _viewModel = new ItemsViewModel();
+            BindingContext = _viewModel = new ShortStoriesItemsVM();
             ItemsListView.ItemAppearing += ItemsListViewOnItemAppearing;
         }
 
 	    private async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            if (!(args.SelectedItem is ShortStory item))
+            if (!(args.SelectedItem is IStory item))
                 return;
 
             await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
@@ -38,7 +38,7 @@ namespace RusfootballMobile.Views
 
 	    private void ItemsListViewOnItemAppearing(object sender, ItemVisibilityEventArgs args)
 	    {
-	        if (!(args.Item is ShortStory item))
+	        if (!(args.Item is IStory item))
 	            return;
 
 	        if (item.Id + 1 >= _viewModel.Items.Count)

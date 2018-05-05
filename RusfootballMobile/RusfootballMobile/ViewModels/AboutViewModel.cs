@@ -5,9 +5,9 @@ using Xamarin.Forms;
 
 namespace RusfootballMobile.ViewModels
 {
-    public class AboutViewModel : BaseViewModel
+    public class AboutVM : ViewModelBase
     {
-        public AboutViewModel()
+        public AboutVM()
         {
             Title = "О программе";
             OpenWebCommand = new Command(() => Device.OpenUri(new Uri("https://xamarin.com/platform")));

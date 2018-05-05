@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:RusfootballMobile.ViewModels;"
              Title="{Binding Title}">
     <ContentPage.BindingContext>
-        <vm:AboutViewModel />
+        <vm:AboutVM />
     </ContentPage.BindingContext>
     <Grid>
         <Grid.RowDefinitions>

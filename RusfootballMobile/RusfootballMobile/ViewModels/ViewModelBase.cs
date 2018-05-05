@@ -3,20 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-using Xamarin.Forms;
-
-using RusfootballMobile.Models;
-using RusfootballMobile.Services;
-
 namespace RusfootballMobile.ViewModels
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public class ViewModelBase : INotifyPropertyChanged
     {
-        public IDataStore<ShortStory> DataStore => DependencyService.Get<IDataStore<ShortStory>>() ?? new MockDataStore();
-
         bool _isBusy;
         string _title = string.Empty;
-
 
         public bool IsBusy
         {

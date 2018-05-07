@@ -6,5 +6,6 @@ namespace RusfootballMobile.Models
     {
         int Id { get; }
         Uri Details { get; }
+        string Title { get; }
     }
 }

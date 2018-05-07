@@ -22,7 +22,7 @@ namespace RusfootballMobile.Views
 	        if (!(args.SelectedItem is IStory item))
 	            return;
 
-	        await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
+	        await Navigation.PushAsync(new ItemDetailPage(new ItemDetailVM(item)));
 
 	        // Manually deselect item.
 	        ItemsListView.SelectedItem = null;

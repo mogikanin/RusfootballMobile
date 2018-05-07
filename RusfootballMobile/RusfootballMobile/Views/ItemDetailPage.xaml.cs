@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using RusfootballMobile.Models;
@@ -7,24 +8,32 @@ using RusfootballMobile.ViewModels;
 namespace RusfootballMobile.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ItemDetailPage : ContentPage
+	public partial class ItemDetailPage
 	{
-        ItemDetailViewModel viewModel;
+	    private readonly ItemDetailVM _viewModel;
 
-        public ItemDetailPage(ItemDetailViewModel viewModel)
+        public ItemDetailPage(ItemDetailVM viewModel)
         {
             InitializeComponent();
 
-            BindingContext = this.viewModel = viewModel;
+            BindingContext = _viewModel = viewModel;
         }
 
-        public ItemDetailPage()
-        {
-            InitializeComponent();
+	    protected override async void OnAppearing()
+	    {
+            base.OnAppearing();
 
-            var item = new ShortStory();
-            viewModel = new ItemDetailViewModel(item);
-            BindingContext = viewModel;
-        }
-    }
+	        var details = await _viewModel.StoryDetailsExtractor.GetDetails(_viewModel.Item);
+	        var htmlSource = new HtmlWebViewSource {Html = details};
+	        WebView.Source = htmlSource;
+	    }
+
+	    private void WebView_OnNavigating(object sender, WebNavigatingEventArgs e)
+	    {
+	        if (e.NavigationEvent != WebNavigationEvent.Refresh)
+	        {
+	            e.Cancel = true;
+	        }
+	    }
+	}
 }

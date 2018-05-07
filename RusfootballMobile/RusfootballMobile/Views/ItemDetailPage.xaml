@@ -3,10 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RusfootballMobile.Views.ItemDetailPage"
              Title="{Binding Title}">
-    <StackLayout Spacing="20" Padding="15">
-        <Label Text="Text:" FontSize="Medium" />
-        <Label Text="{Binding Item.Text}" FontSize="Small"/>
-        <Label Text="Description:" FontSize="Medium" />
-        <Label Text="{Binding Item.Description}" FontSize="Small"/>
-    </StackLayout>
+    <Grid Padding="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Text="{Binding Path=Item.Title, Mode=OneWay}" LineBreakMode="WordWrap" FontAttributes="Bold" FontSize="18"/>
+        <WebView Grid.Row="1" x:Name="WebView" Navigating="WebView_OnNavigating"/>
+        <StackLayout Grid.Row="2"  Orientation="Vertical">
+            <Label Text="Адрес новости:" FontSize="10"/>
+            <Label Text="{Binding Path=Address, Mode=OneWay}" LineBreakMode="WordWrap" FontSize="10" />
+        </StackLayout>
+    </Grid>
 </ContentPage>

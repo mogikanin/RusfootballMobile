@@ -29,13 +29,11 @@ namespace RusfootballMobile.Services
                 doc.LoadHtml(html);
                 var node = doc.DocumentNode.SelectSingleNode("//div[@class='short-story-news']");
 
-                var head = doc.DocumentNode.SelectSingleNode("//head");
                 return "<html>" +
                             "<head>" +
                                 "<base href=\"https://www.rusfootball.info/\"></base>" +
-                                head.InnerHtml +
                             "</head>" +
-                             $"<body>{node.OuterHtml}</body>" +
+                             $"<body>{node.InnerHtml}</body>" +
                        "</html>";
             }
             catch (Exception e)

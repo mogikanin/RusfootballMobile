@@ -1,8 +1,5 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
-using RusfootballMobile.Models;
 using RusfootballMobile.ViewModels;
 
 namespace RusfootballMobile.Views
@@ -23,12 +20,16 @@ namespace RusfootballMobile.Views
 	    {
             base.OnAppearing();
 
-	        var details = await _viewModel.StoryDetailsExtractor.GetDetails(_viewModel.Item);
+	        ActivityIndicator.IsRunning = true;
+
+            var details = await _viewModel.StoryDetailsExtractor.GetDetails(_viewModel.Item);
 	        var htmlSource = new HtmlWebViewSource {Html = details};
 	        WebView.Source = htmlSource;
-	    }
 
-	    private void WebView_OnNavigating(object sender, WebNavigatingEventArgs e)
+	        ActivityIndicator.IsRunning = false;
+        }
+
+        private void WebView_OnNavigating(object sender, WebNavigatingEventArgs e)
 	    {
 	        if (e.NavigationEvent != WebNavigationEvent.Refresh)
 	        {

@@ -27,31 +27,23 @@
                                        Text="{Binding Title, Mode=OneWay}" 
                                        LineBreakMode="WordWrap" 
                                        Style="{DynamicResource ListItemTextStyle}" 
-                                       FontSize="16" />
-                                <StackLayout Grid.Row="1"
-                                             Orientation="Horizontal"
-                                             Margin="0,5,0,0">
-                                    <Image Source="{Binding Image, Mode=OneWay}" Margin="0,0,5,0"/>
-                                    <Label Text="{Binding Text, Mode=OneWay}" 
+                                       FontSize="16" FontAttributes="Bold" />
+                                <Grid Grid.Row="1"  Margin="0,5,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0" Source="{Binding Image, Mode=OneWay}" Margin="10,5" VerticalOptions="Start" />
+                                    <Label Grid.Column="1" Text="{Binding Text, Mode=OneWay}" 
                                            LineBreakMode="WordWrap"
-                                           Style="{DynamicResource ListItemDetailTextStyle}"
-                                           FontSize="13" />
-                                </StackLayout>
-                                <Label Grid.Row="2" Text="{Binding Date, Mode=OneWay}" Margin="0,3,0,0" FontSize="10" TextColor="Gray"/>
+                                           Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                </Grid>
+                             
+                                <Label Grid.Row="2" Text="{Binding Date, Mode=OneWay}" FontSize="10" TextColor="Gray"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                <ListView.Footer>
-                    <Grid Padding="5" IsVisible="{Binding IsBusy, Mode=OneWay}">
-                        <Grid.Triggers>
-                            <Trigger TargetType="Grid" Property="IsVisible" Value="False">
-                                <Setter Property="HeightRequest" Value="0"/>
-                            </Trigger>
-                        </Grid.Triggers>
-                        <Label Text="Загрузка..." TextColor="Crimson" VerticalOptions="Center" HorizontalOptions="Center"/>
-                    </Grid>
-                </ListView.Footer>
             </ListView>
         </StackLayout>
     </ContentPage.Content>

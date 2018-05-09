@@ -12,11 +12,7 @@ namespace RusfootballMobile.Services
     internal class StoryDetailsExtractor : IStoryDetailsExtractor
     {
         private readonly ILogger _logger = LoggerFactory.GetLogger<StoryDetailsExtractor>();
-
-        public StoryDetailsExtractor()
-        {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-        }
+        private readonly Encoding _enc1251 = Encoding.GetEncoding(1251);
 
         public async Task<string> GetDetails(IStory story)
         {
@@ -25,8 +21,7 @@ namespace RusfootballMobile.Services
                 byte[] bytes;
                 using (var httpClient = new HttpClient())
                     bytes = await httpClient.GetByteArrayAsync(story.Details);
-                var enc = Encoding.GetEncoding(1251);
-                var html = enc.GetString(bytes);
+                var html = _enc1251.GetString(bytes);
 
                 var doc = new HtmlDocument();
                 doc.LoadHtml(html);

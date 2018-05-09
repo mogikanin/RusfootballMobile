@@ -13,11 +13,11 @@ namespace RusfootballMobile.Services
     {
         private int _page = 1;
         private readonly ILogger _logger;
+        private readonly Encoding _enc1251 = Encoding.GetEncoding(1251);
 
         protected DataProviderBase(string host)
         {
             Host = host;
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             _logger = LoggerFactory.GetLogger(GetType());
         }
 
@@ -48,8 +48,8 @@ namespace RusfootballMobile.Services
                 _logger.Info($"Loading page: {_page}");
                 using (var httpClient = new HttpClient())
                     bytes = await httpClient.GetByteArrayAsync(host);
-                var enc = Encoding.GetEncoding(1251);
-                html = enc.GetString(bytes);
+
+                html = _enc1251.GetString(bytes);
             }
             catch (Exception e)
             {

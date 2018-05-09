@@ -5,17 +5,20 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
+using RusfootballMobile.Logging;
 
 namespace RusfootballMobile.Services
 {
     public abstract class DataProviderBase<T> : IDataProvider<T>
     {
         private int _page = 1;
+        private readonly ILogger _logger;
 
         protected DataProviderBase(string host)
         {
             Host = host;
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            _logger = LoggerFactory.GetLogger(GetType());
         }
 
         protected string Host { get; }
@@ -42,6 +45,7 @@ namespace RusfootballMobile.Services
                 }
 
                 byte[] bytes;
+                _logger.Info($"Loading page: {_page}");
                 using (var httpClient = new HttpClient())
                     bytes = await httpClient.GetByteArrayAsync(host);
                 var enc = Encoding.GetEncoding(1251);
@@ -49,7 +53,7 @@ namespace RusfootballMobile.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                _logger.Error("Load error", e);
             }
 
             if (string.IsNullOrEmpty(html))
@@ -64,6 +68,8 @@ namespace RusfootballMobile.Services
 
                 var output = ParseItems(doc);
 
+                _logger.Info($"Parsed {output.Count} items");
+
                 if (nextPage && Items != null)
                 {
                     Items.AddRange(output);
@@ -77,7 +83,7 @@ namespace RusfootballMobile.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                _logger.Error("Parse error", e);
                 return Enumerable.Empty<T>();
             }
         }

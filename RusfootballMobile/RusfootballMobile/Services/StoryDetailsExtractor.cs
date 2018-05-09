@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
+using RusfootballMobile.Logging;
 using RusfootballMobile.Models;
 
 [assembly: Xamarin.Forms.Dependency(typeof(RusfootballMobile.Services.StoryDetailsExtractor))]
@@ -10,6 +11,8 @@ namespace RusfootballMobile.Services
 {
     internal class StoryDetailsExtractor : IStoryDetailsExtractor
     {
+        private readonly ILogger _logger = LoggerFactory.GetLogger<StoryDetailsExtractor>();
+
         public StoryDetailsExtractor()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -38,7 +41,7 @@ namespace RusfootballMobile.Services
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                _logger.Error("Details error", e);
                 return String.Empty;
             }
         }

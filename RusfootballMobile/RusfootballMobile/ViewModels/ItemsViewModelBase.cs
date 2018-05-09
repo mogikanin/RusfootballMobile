@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using RusfootballMobile.Logging;
 using Xamarin.Forms;
 using RusfootballMobile.Services;
 
@@ -9,12 +10,15 @@ namespace RusfootballMobile.ViewModels
     public abstract class ItemsViewModelBase<T> : ViewModelBase
     {
         private IDataProvider<T> DataProvider => DependencyService.Get<IDataProvider<T>>() ?? GetProvider();
+        private readonly ILogger _logger;
+
 
         protected ItemsViewModelBase()
         {
             Items = new ObservableCollection<T>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand(false));
             LoadMoreItemsCommand = new Command(async () => await ExecuteLoadItemsCommand(true));
+            _logger = LoggerFactory.GetLogger(GetType());
         }
 
         protected abstract IDataProvider<T> GetProvider();
@@ -42,7 +46,7 @@ namespace RusfootballMobile.ViewModels
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                _logger.Error("Load items failure", ex);
             }
             finally
             {

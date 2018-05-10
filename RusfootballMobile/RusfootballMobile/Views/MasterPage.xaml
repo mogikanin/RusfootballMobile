@@ -4,8 +4,7 @@
              xmlns:views="clr-namespace:RusfootballMobile.Views;assembly=RusfootballMobile"
              x:Class="RusfootballMobile.Views.MasterPage"
              Padding="0,40,0,0"
-             Icon="hamburger.png"
-             Title="Rusfootball Mobile">
+             Title="Футбольные новости">
     <StackLayout>
         <ListView x:Name="listView">
             <ListView.ItemsSource>

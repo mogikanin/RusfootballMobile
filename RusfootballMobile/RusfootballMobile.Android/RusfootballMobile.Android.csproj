@@ -17,10 +17,12 @@
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <AndroidKeyStore>false</AndroidKeyStore>
-    <AndroidSigningKeyStore>D:\Keys\google.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyStore>
+    </AndroidSigningKeyStore>
     <AndroidSigningStorePass>
     </AndroidSigningStorePass>
-    <AndroidSigningKeyAlias>rusfootball.mobile</AndroidSigningKeyAlias>
+    <AndroidSigningKeyAlias>
+    </AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>
     </AndroidSigningKeyPass>
   </PropertyGroup>

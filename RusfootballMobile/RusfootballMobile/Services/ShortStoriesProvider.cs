@@ -13,7 +13,7 @@ namespace RusfootballMobile.Services
         {
         }
 
-        protected override List<ShortStory> ParseItems(HtmlDocument doc)
+        protected override IEnumerable<ShortStory> ParseItems(HtmlDocument doc)
         {
             var contentNode = doc.DocumentNode.SelectSingleNode("//div[@id='dle-content']");
             if (contentNode == null)
@@ -22,8 +22,6 @@ namespace RusfootballMobile.Services
             }
 
             var items = contentNode.SelectNodes("//div[@class='short-story']");
-            var output = new List<ShortStory>(items.Count);
-            var counter = Items?.Count ?? 0;
             foreach (var story in items)
             {
                 var shortStory = new ShortStory();
@@ -40,12 +38,8 @@ namespace RusfootballMobile.Services
                 var info = innerStory.SelectSingleNode("//div[@class='short-story-info']");
                 var date = HttpUtility.HtmlDecode(info.SelectSingleNode("//div[@class='short-story-date2']/a").InnerHtml);
                 shortStory.Date = date;
-                shortStory.Id = counter++;
-
-                output.Add(shortStory);
+                yield return shortStory;
             }
-
-            return output;
         }
     }
 }

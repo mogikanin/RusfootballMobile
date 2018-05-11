@@ -1,4 +1,5 @@
-﻿using RusfootballMobile.Models;
+﻿using RusfootballMobile.Logging;
+using RusfootballMobile.Models;
 using RusfootballMobile.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -9,8 +10,9 @@ namespace RusfootballMobile.Views
 	public partial class LastNewsItemsPage
 	{
 	    private readonly LastNewsItemsVM _viewModel;
+	    private readonly ILogger _logger = LoggerFactory.GetLogger<LastNewsItemsPage>();
 
-	    public LastNewsItemsPage()
+        public LastNewsItemsPage()
 	    {
 	        InitializeComponent();
 	        BindingContext = _viewModel = new LastNewsItemsVM();
@@ -19,10 +21,10 @@ namespace RusfootballMobile.Views
 
 	    private async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
 	    {
-	        if (!(args.SelectedItem is IStory item))
+	        if (!(args.SelectedItem is LastNewsVM item))
 	            return;
 
-	        await Navigation.PushAsync(new ItemDetailPage(new ItemDetailVM(item)));
+	        await Navigation.PushAsync(new ItemDetailPage(new ItemDetailVM(item.Item)));
 
 	        // Manually deselect item.
 	        ItemsListView.SelectedItem = null;
@@ -38,10 +40,11 @@ namespace RusfootballMobile.Views
 
 	    private void ItemsListViewOnItemAppearing(object sender, ItemVisibilityEventArgs args)
 	    {
-	        if (!(args.Item is IStory item))
+	        if (!(args.Item is LastNewsVM item))
 	            return;
 
-	        if (item.Id + 1 >= _viewModel.Items.Count)
+	        _logger.Debug("Item appearing: " + item.Index);
+            if (item.Index + 1 >= _viewModel.Items.Count)
 	        {
 	            _viewModel.LoadMoreItemsCommand.Execute(null);
 	        }

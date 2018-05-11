@@ -1,7 +1,6 @@
 ﻿using RusfootballMobile.Logging;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using RusfootballMobile.Models;
 using RusfootballMobile.ViewModels;
 
 namespace RusfootballMobile.Views
@@ -21,10 +20,10 @@ namespace RusfootballMobile.Views
 
 	    private async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            if (!(args.SelectedItem is IStory item))
+            if (!(args.SelectedItem is ShortStoryVM item))
                 return;
 
-            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailVM(item)));
+            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailVM(item.Item)));
 
             // Manually deselect item.
             ItemsListView.SelectedItem = null;
@@ -40,13 +39,12 @@ namespace RusfootballMobile.Views
 
 	    private void ItemsListViewOnItemAppearing(object sender, ItemVisibilityEventArgs args)
 	    {
-	        if (!(args.Item is ShortStory item))
+	        if (!(args.Item is ShortStoryVM item))
 	            return;
 
-	        _logger.Debug("Item appearing: " + item.Id);
+	        _logger.Debug("Item appearing: " + item.Index);
 	        item.IsAppeared = true;
-
-            if (item.Id + 1 >= _viewModel.Items.Count)
+            if (item.Index + 1 >= _viewModel.Items.Count)
 	        {
 	            _viewModel.LoadMoreItemsCommand.Execute(null);
             }

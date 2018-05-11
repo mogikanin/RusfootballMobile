@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace RusfootballMobile.Services
 {
     public interface IDataProvider<T>
     {
-        Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh, bool nextPage);
+        Task GetItemsAsync(bool nextPage, Action<T> onNewItem);
     }
 }

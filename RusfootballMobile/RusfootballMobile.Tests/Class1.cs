@@ -16,7 +16,7 @@ namespace RusfootballMobile.Tests
         public async Task Test()
         {
             var store = new LastNewsProvider();
-            var res = await store.GetItemsAsync(true, false);
+            //var res = await store.GetItemsAsync(false);
         }
     }
 }

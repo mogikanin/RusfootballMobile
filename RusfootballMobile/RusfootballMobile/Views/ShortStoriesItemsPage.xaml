@@ -6,10 +6,10 @@
     <ContentPage.Content>
         <StackLayout>
             <ListView x:Name="ItemsListView"
-                      ItemsSource="{Binding Items}"
+                      ItemsSource="{Binding Items, Mode=OneWay}"
                       VerticalOptions="FillAndExpand"
                       HasUnevenRows="True"
-                      RefreshCommand="{Binding LoadItemsCommand}"
+                      RefreshCommand="{Binding LoadItemsCommand, Mode=OneTime}"
                       IsPullToRefreshEnabled="true"
                       IsRefreshing="{Binding Path=Busy.IsBusy, Mode=OneWay}"
                       CachingStrategy="RecycleElement"
@@ -24,7 +24,7 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <Label Grid.Row="0"
-                                       Text="{Binding Title, Mode=OneTime}" 
+                                       Text="{Binding Path=Item.Title, Mode=OneTime}" 
                                        LineBreakMode="WordWrap" 
                                        Style="{DynamicResource ListItemTextStyle}" 
                                        FontSize="16" FontAttributes="Bold" />
@@ -33,13 +33,13 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0" Source="{Binding Image, Mode=OneWay}" Margin="10,5" VerticalOptions="Start"/>
-                                    <Label Grid.Column="1" Text="{Binding Text, Mode=OneTime}" 
+                                    <Image Grid.Column="0" Source="{Binding Path=Image, Mode=OneWay}" Margin="10,5" VerticalOptions="Start"/>
+                                    <Label Grid.Column="1" Text="{Binding Path=Item.Text, Mode=OneTime}" 
                                            LineBreakMode="WordWrap"
                                            Style="{DynamicResource ListItemDetailTextStyle}"/>
                                 </Grid>
 
-                                <Label Grid.Row="2" Text="{Binding Date, Mode=OneTime}" FontSize="10" TextColor="Gray"/>
+                                <Label Grid.Row="2" Text="{Binding Path=Item.Date, Mode=OneTime}" FontSize="10" TextColor="Gray"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,19 +21,15 @@ namespace RusfootballMobile.Services
         }
 
         protected string Host { get; }
-        protected List<T> Items { get; private set; }
-        protected abstract List<T> ParseItems(HtmlDocument document);
+        protected abstract IEnumerable<T> ParseItems(HtmlDocument document);
 
-        public async Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh, bool nextPage)
+        public async Task GetItemsAsync(bool nextPage, Action<T> onNewItem)
         {
-            if (!forceRefresh && Items != null && !nextPage)
-                return Items;
-
             string html = null;
             try
             {
                 var host = Host;
-                if (nextPage && Items != null)
+                if (nextPage)
                 {
                     _page++;
                     host += $"/page/{_page}/";
@@ -58,33 +53,27 @@ namespace RusfootballMobile.Services
 
             if (string.IsNullOrEmpty(html))
             {
-                return Enumerable.Empty<T>();
+                return;
             }
 
             try
             {
                 var doc = new HtmlDocument();
                 doc.LoadHtml(html);
+                _logger.Info("Html loaded");
 
-                var output = ParseItems(doc);
-
-                _logger.Info($"Parsed {output.Count} items");
-
-                if (nextPage && Items != null)
+                var counter = 0;
+                foreach (var item in ParseItems(doc))
                 {
-                    Items.AddRange(output);
-                }
-                else
-                {
-                    Items = output;
+                    onNewItem(item);
+                    counter++;
                 }
 
-                return output;
+                _logger.Info($"Parsed {counter} items");
             }
             catch (Exception e)
             {
                 _logger.Error("Parse error", e);
-                return Enumerable.Empty<T>();
             }
         }
     }

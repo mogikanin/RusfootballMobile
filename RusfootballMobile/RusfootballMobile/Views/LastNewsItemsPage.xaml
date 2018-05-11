@@ -6,10 +6,10 @@
     <ContentPage.Content>
         <StackLayout>
             <ListView x:Name="ItemsListView"
-                      ItemsSource="{Binding Items}"
+                      ItemsSource="{Binding Items, Mode=OneWay}"
                       VerticalOptions="FillAndExpand"
                       HasUnevenRows="True"
-                      RefreshCommand="{Binding LoadItemsCommand}"
+                      RefreshCommand="{Binding LoadItemsCommand, Mode=OneTime}"
                       IsPullToRefreshEnabled="true"
                       IsRefreshing="{Binding Path=Busy.IsBusy, Mode=OneWay}"
                       CachingStrategy="RecycleElement"
@@ -23,18 +23,18 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <Label Grid.Row="0"
-                                       Text="{Binding Title, Mode=OneWay}" 
+                                       Text="{Binding Path=Item.Title, Mode=OneTime}" 
                                        LineBreakMode="WordWrap" 
                                        Style="{DynamicResource ListItemTextStyle}"
                                        FontAttributes="None"
                                        FontSize="16">
                                     <Label.Triggers>
-                                        <DataTrigger TargetType="Label"  Binding="{Binding Path=IsStrong, Mode=OneWay}" Value="true">
+                                        <DataTrigger TargetType="Label"  Binding="{Binding Path=Item.IsStrong, Mode=OneTime}" Value="true">
                                             <Setter  Property="FontAttributes" Value="Bold"/>
                                         </DataTrigger>
                                      </Label.Triggers>
                                 </Label>
-                                <Label Grid.Row="1" Text="{Binding Date, Mode=OneWay}" FontSize="10" TextColor="Gray"/>
+                                <Label Grid.Row="1" Text="{Binding Path=Item.Date, Mode=OneTime}" FontSize="10" TextColor="Gray"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

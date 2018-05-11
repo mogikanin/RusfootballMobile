@@ -7,14 +7,14 @@ using RusfootballMobile.Services;
 
 namespace RusfootballMobile.ViewModels
 {
-    public abstract class ItemsViewModelBase<T> : ViewModelBase
+    public abstract class ItemsViewModelBase<T, TVM> : ViewModelBase
     {
         private readonly Lazy<IDataProvider<T>> _dataProvider;
         private readonly ILogger _logger;
 
         protected ItemsViewModelBase()
         {
-            Items = new ObservableCollection<T>();
+            Items = new ObservableCollection<TVM>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand(false));
             LoadMoreItemsCommand = new Command(async () => await ExecuteLoadItemsCommand(true));
             _logger = LoggerFactory.GetLogger(GetType());
@@ -22,8 +22,9 @@ namespace RusfootballMobile.ViewModels
         }
 
         protected abstract IDataProvider<T> GetProvider();
+        protected abstract TVM CreateItem(T source);
 
-        public ObservableCollection<T> Items { get; }
+        public ObservableCollection<TVM> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command LoadMoreItemsCommand { get; }
         public BusyObject Busy { get; } = new BusyObject();
@@ -39,11 +40,10 @@ namespace RusfootballMobile.ViewModels
                 {
                     Items.Clear();
                 }
-                var items = await _dataProvider.Value.GetItemsAsync(true, nextPage);
-                foreach (var item in items)
+                await _dataProvider.Value.GetItemsAsync(nextPage, delegate(T obj)
                 {
-                    Items.Add(item);
-                }
+                    Items.Add(CreateItem(obj));
+                });
             }
             catch (Exception ex)
             {

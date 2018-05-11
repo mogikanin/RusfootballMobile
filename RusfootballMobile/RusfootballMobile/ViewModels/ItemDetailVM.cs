@@ -11,7 +11,6 @@ namespace RusfootballMobile.ViewModels
 
         public ItemDetailVM(IStory item)
         {
-            Title = "Подробности";
             Item = item;
         }
 

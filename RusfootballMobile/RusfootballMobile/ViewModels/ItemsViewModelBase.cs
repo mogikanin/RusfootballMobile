@@ -26,11 +26,12 @@ namespace RusfootballMobile.ViewModels
         public ObservableCollection<T> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command LoadMoreItemsCommand { get; }
+        public BusyObject Busy { get; } = new BusyObject();
 
         private async Task ExecuteLoadItemsCommand(bool nextPage)
         {
-            if (IsBusy) return;
-            IsBusy = true;
+            if (Busy.IsBusy) return;
+            Busy.IsBusy = true;
 
             try
             {
@@ -50,7 +51,7 @@ namespace RusfootballMobile.ViewModels
             }
             finally
             {
-                IsBusy = false;
+                Busy.IsBusy = false;
             }
         }
 

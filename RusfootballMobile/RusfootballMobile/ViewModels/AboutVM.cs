@@ -9,7 +9,6 @@ namespace RusfootballMobile.ViewModels
     {
         public AboutVM()
         {
-            Title = "О программе";
             OpenWebCommand = new Command(() => Device.OpenUri(new Uri("mailto:rusfootball.mobile@gmail.com")));
         }
 

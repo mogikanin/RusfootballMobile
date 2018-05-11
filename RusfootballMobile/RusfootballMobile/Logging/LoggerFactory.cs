@@ -19,6 +19,7 @@ namespace RusfootballMobile.Logging
     public interface ILogger
     {
         void Info(string message);
+        void Debug(string message);
         void Error(string message, Exception exception);
     }
 
@@ -34,6 +35,11 @@ namespace RusfootballMobile.Logging
         public void Info(string message)
         {
             Trace.WriteLine($"[Rusfootball.Mobile] [{_name}] [Info] " + message);
+        }
+
+        public void Debug(string message)
+        {
+            System.Diagnostics.Debug.WriteLine($"[Rusfootball.Mobile] [{_name}] [Dbg] " + message);
         }
 
         public void Error(string message, Exception exception)

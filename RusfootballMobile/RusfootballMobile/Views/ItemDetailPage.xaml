@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RusfootballMobile.Views.ItemDetailPage"
-             Title="{Binding Title}">
+             Title="Подробности">
     <Grid Padding="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

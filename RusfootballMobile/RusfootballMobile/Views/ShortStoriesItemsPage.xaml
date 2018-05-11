@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RusfootballMobile.Views.ShortStoriesItemsPage"
-             Title="{Binding Title}">
+             Title="Главная">
     <ContentPage.Content>
         <StackLayout>
             <ListView x:Name="ItemsListView"
@@ -11,7 +11,7 @@
                       HasUnevenRows="True"
                       RefreshCommand="{Binding LoadItemsCommand}"
                       IsPullToRefreshEnabled="true"
-                      IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                      IsRefreshing="{Binding Path=Busy.IsBusy, Mode=OneWay}"
                       CachingStrategy="RecycleElement"
                       ItemSelected="OnItemSelected">
                 <ListView.ItemTemplate>
@@ -24,7 +24,7 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <Label Grid.Row="0"
-                                       Text="{Binding Title, Mode=OneWay}" 
+                                       Text="{Binding Title, Mode=OneTime}" 
                                        LineBreakMode="WordWrap" 
                                        Style="{DynamicResource ListItemTextStyle}" 
                                        FontSize="16" FontAttributes="Bold" />
@@ -33,13 +33,13 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0" Source="{Binding Image, Mode=OneWay}" Margin="10,5" VerticalOptions="Start" />
-                                    <Label Grid.Column="1" Text="{Binding Text, Mode=OneWay}" 
+                                    <Image Grid.Column="0" Source="{Binding Image, Mode=OneWay}" Margin="10,5" VerticalOptions="Start"/>
+                                    <Label Grid.Column="1" Text="{Binding Text, Mode=OneTime}" 
                                            LineBreakMode="WordWrap"
                                            Style="{DynamicResource ListItemDetailTextStyle}"/>
                                 </Grid>
-                             
-                                <Label Grid.Row="2" Text="{Binding Date, Mode=OneWay}" FontSize="10" TextColor="Gray"/>
+
+                                <Label Grid.Row="2" Text="{Binding Date, Mode=OneTime}" FontSize="10" TextColor="Gray"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

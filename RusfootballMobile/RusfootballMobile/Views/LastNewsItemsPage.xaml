@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RusfootballMobile.Views.LastNewsItemsPage"
-             Title="{Binding Title}">
+             Title="Лента новостей">
     <ContentPage.Content>
         <StackLayout>
             <ListView x:Name="ItemsListView"
@@ -11,7 +11,7 @@
                       HasUnevenRows="True"
                       RefreshCommand="{Binding LoadItemsCommand}"
                       IsPullToRefreshEnabled="true"
-                      IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                      IsRefreshing="{Binding Path=Busy.IsBusy, Mode=OneWay}"
                       CachingStrategy="RecycleElement"
                       ItemSelected="OnItemSelected">
                 <ListView.ItemTemplate>

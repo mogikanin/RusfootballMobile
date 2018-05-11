@@ -8,9 +8,10 @@
     <StackLayout>
         <ListView x:Name="listView">
             <ListView.ItemsSource>
-                <x:Array Type="{x:Type views:MasterPageItem}">
+                <x:Array Type="{x:Type x:Object}">
                     <views:MasterPageItem Title="Главная" TargetType="{x:Type views:ShortStoriesItemsPage}" />
                     <views:MasterPageItem Title="Лента новостей" TargetType="{x:Type views:LastNewsItemsPage}" />
+                    <views:RateUsAction Title="Оценить приложение" />
                     <views:MasterPageItem Title="О программе" TargetType="{x:Type views:AboutPage}" />
                 </x:Array>
             </ListView.ItemsSource>

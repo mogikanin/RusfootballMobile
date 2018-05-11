@@ -21,12 +21,18 @@ namespace RusfootballMobile.Views
 
         private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            if (e.SelectedItem is MasterPageItem item)
+            switch (e.SelectedItem)
             {
-                Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));
-                masterPage.ListView.SelectedItem = null;
-                IsPresented = false;
+                case MasterPageItem item:
+                    Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetType));
+                    break;
+                case MasterActionItem item:
+                    item.Action?.Invoke();
+                    break;
             }
+
+            masterPage.ListView.SelectedItem = null;
+            IsPresented = false;
         }
     }
 }

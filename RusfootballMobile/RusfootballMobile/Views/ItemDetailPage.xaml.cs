@@ -20,13 +20,9 @@ namespace RusfootballMobile.Views
 	    {
             base.OnAppearing();
 
-	        ActivityIndicator.IsRunning = true;
-
-            var details = await _viewModel.StoryDetailsExtractor.GetDetails(_viewModel.Item);
+            var details = await _viewModel.GetDetails();
 	        var htmlSource = new HtmlWebViewSource {Html = details};
 	        WebView.Source = htmlSource;
-
-	        ActivityIndicator.IsRunning = false;
         }
 
         private void WebView_OnNavigating(object sender, WebNavigatingEventArgs e)

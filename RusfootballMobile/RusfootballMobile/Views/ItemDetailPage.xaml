@@ -9,12 +9,12 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Text="{Binding Path=Item.Title, Mode=OneWay}" LineBreakMode="WordWrap" FontAttributes="Bold" FontSize="18"/>
+        <Label Grid.Row="0" Text="{Binding Path=Title, Mode=OneTime}" LineBreakMode="WordWrap" FontAttributes="Bold" FontSize="18"/>
         <WebView Grid.Row="1" x:Name="WebView" Navigating="WebView_OnNavigating"/>
-        <ActivityIndicator x:Name="ActivityIndicator" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+        <ActivityIndicator IsRunning="{Binding Path=Busy.IsBusy, Mode=OneWay}" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"/>
         <StackLayout Grid.Row="2"  Orientation="Vertical">
             <Label Text="Адрес новости:" FontSize="10"/>
-            <Label Text="{Binding Path=Address, Mode=OneWay}" LineBreakMode="WordWrap" FontSize="10" />
+            <Label Text="{Binding Path=Address, Mode=OneTime}" LineBreakMode="WordWrap" FontSize="10" />
         </StackLayout>
     </Grid>
 </ContentPage>

@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using RusfootballMobile.Logging;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using RusfootballMobile.Models;
 using RusfootballMobile.ViewModels;
@@ -9,6 +10,7 @@ namespace RusfootballMobile.Views
 	public partial class ShortStoriesItemsPage
     {
 	    private readonly ShortStoriesItemsVM _viewModel;
+        private readonly ILogger _logger = LoggerFactory.GetLogger<ShortStoriesItemsPage>();
 
         public ShortStoriesItemsPage()
         {
@@ -38,10 +40,13 @@ namespace RusfootballMobile.Views
 
 	    private void ItemsListViewOnItemAppearing(object sender, ItemVisibilityEventArgs args)
 	    {
-	        if (!(args.Item is IStory item))
+	        if (!(args.Item is ShortStory item))
 	            return;
 
-	        if (item.Id + 1 >= _viewModel.Items.Count)
+	        _logger.Debug("Item appearing: " + item.Id);
+	        item.IsAppeared = true;
+
+            if (item.Id + 1 >= _viewModel.Items.Count)
 	        {
 	            _viewModel.LoadMoreItemsCommand.Execute(null);
             }

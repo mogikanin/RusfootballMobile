@@ -1,19 +1,34 @@
-﻿using RusfootballMobile.Models;
+﻿using System.Threading.Tasks;
+using RusfootballMobile.Models;
 using RusfootballMobile.Services;
 
 namespace RusfootballMobile.ViewModels
 {
     public class ItemDetailVM : ViewModelBase
     {
-        public readonly IStoryDetailsExtractor StoryDetailsExtractor = new StoryDetailsExtractor();
-
-        public IStory Item { get; set; }
+        private readonly IStoryDetailsExtractor _storyDetailsExtractor = new StoryDetailsExtractor();
+        private readonly IStory _item;
 
         public ItemDetailVM(IStory item)
         {
-            Item = item;
+            _item = item;
         }
 
-        public string Address => Item.Details.ToString();
+        public BusyObject Busy { get; } = new BusyObject();
+        public async Task<string> GetDetails()
+        {
+            Busy.IsBusy = true;
+            try
+            {
+                return await _storyDetailsExtractor.GetDetails(_item);
+            }
+            finally 
+            {
+                Busy.IsBusy = false;
+            }
+        }
+
+        public string Title => _item.Title;
+        public string Address => _item.Details.ToString();
     }
 }

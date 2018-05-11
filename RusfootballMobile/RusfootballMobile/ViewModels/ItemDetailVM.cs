@@ -1,13 +1,11 @@
 ﻿using RusfootballMobile.Models;
 using RusfootballMobile.Services;
-using Xamarin.Forms;
 
 namespace RusfootballMobile.ViewModels
 {
     public class ItemDetailVM : ViewModelBase
     {
-        public IStoryDetailsExtractor StoryDetailsExtractor =>
-            DependencyService.Get<IStoryDetailsExtractor>() ?? new StoryDetailsExtractor();
+        public readonly IStoryDetailsExtractor StoryDetailsExtractor = new StoryDetailsExtractor();
 
         public IStory Item { get; set; }
 

@@ -4,7 +4,6 @@ using System.Web;
 using HtmlAgilityPack;
 using RusfootballMobile.Models;
 
-[assembly: Xamarin.Forms.Dependency(typeof(RusfootballMobile.Services.ShortStoriesProvider))]
 namespace RusfootballMobile.Services
 {
     public class ShortStoriesProvider : DataProviderBase<ShortStory>

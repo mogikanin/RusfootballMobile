@@ -9,9 +9,8 @@ namespace RusfootballMobile.ViewModels
 {
     public abstract class ItemsViewModelBase<T> : ViewModelBase
     {
-        private IDataProvider<T> DataProvider => DependencyService.Get<IDataProvider<T>>() ?? GetProvider();
+        private readonly Lazy<IDataProvider<T>> _dataProvider;
         private readonly ILogger _logger;
-
 
         protected ItemsViewModelBase()
         {
@@ -19,6 +18,7 @@ namespace RusfootballMobile.ViewModels
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand(false));
             LoadMoreItemsCommand = new Command(async () => await ExecuteLoadItemsCommand(true));
             _logger = LoggerFactory.GetLogger(GetType());
+            _dataProvider = new Lazy<IDataProvider<T>>(GetProvider, true);
         }
 
         protected abstract IDataProvider<T> GetProvider();
@@ -38,7 +38,7 @@ namespace RusfootballMobile.ViewModels
                 {
                     Items.Clear();
                 }
-                var items = await DataProvider.GetItemsAsync(true, nextPage);
+                var items = await _dataProvider.Value.GetItemsAsync(true, nextPage);
                 foreach (var item in items)
                 {
                     Items.Add(item);

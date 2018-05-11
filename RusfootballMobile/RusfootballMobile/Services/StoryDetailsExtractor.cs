@@ -6,7 +6,6 @@ using HtmlAgilityPack;
 using RusfootballMobile.Logging;
 using RusfootballMobile.Models;
 
-[assembly: Xamarin.Forms.Dependency(typeof(RusfootballMobile.Services.StoryDetailsExtractor))]
 namespace RusfootballMobile.Services
 {
     internal class StoryDetailsExtractor : IStoryDetailsExtractor

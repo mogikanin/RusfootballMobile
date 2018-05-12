@@ -11,8 +11,8 @@
                 <x:Array Type="{x:Type x:Object}">
                     <views:MasterPageItem Title="Главная" TargetType="{x:Type views:ShortStoriesItemsPage}" />
                     <views:MasterPageItem Title="Лента новостей" TargetType="{x:Type views:LastNewsItemsPage}" />
-                    <views:RateUsAction Title="Оценить приложение" />
-                    <views:MasterPageItem Title="О программе" TargetType="{x:Type views:AboutPage}" />
+                    <views:ContactSupportAction Title="Написать разработчику" />
+                    <views:MasterPageItem Title="О приложении" TargetType="{x:Type views:AboutPage}" />
                 </x:Array>
             </ListView.ItemsSource>
             <ListView.ItemTemplate>

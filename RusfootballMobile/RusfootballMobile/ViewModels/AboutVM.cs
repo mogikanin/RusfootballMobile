@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
-
+using RusfootballMobile.Services;
 using Xamarin.Forms;
 
 namespace RusfootballMobile.ViewModels
@@ -9,7 +9,7 @@ namespace RusfootballMobile.ViewModels
     {
         public AboutVM()
         {
-            OpenWebCommand = new Command(() => Device.OpenUri(new Uri("mailto:rusfootball.mobile@gmail.com")));
+            OpenWebCommand = new Command(() => DependencyService.Get<INavigateToStore>().NavigateToCurrentApp());
         }
 
         public ICommand OpenWebCommand { get; }

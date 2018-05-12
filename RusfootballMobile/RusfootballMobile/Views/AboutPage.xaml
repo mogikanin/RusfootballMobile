@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RusfootballMobile.Views.AboutPage"
              xmlns:vm="clr-namespace:RusfootballMobile.ViewModels;"
-             Title="О программе">
+             Title="О приложении">
     <ContentPage.BindingContext>
         <vm:AboutVM />
     </ContentPage.BindingContext>
@@ -28,7 +28,7 @@
                     </Label.FormattedText>
                 </Label>
 
-                <Button Margin="0,10,0,0" Text="Написать разработчику" Command="{Binding OpenWebCommand}" />
+                <Button Margin="0,10,0,0" Text="Оценить приложение" Command="{Binding OpenWebCommand}" />
             </StackLayout>
         </ScrollView>
     </Grid>

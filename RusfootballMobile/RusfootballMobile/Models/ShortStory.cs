@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace RusfootballMobile.Models
 {
@@ -9,5 +10,6 @@ namespace RusfootballMobile.Models
         public Uri Image { get; set; }
         public string Text { get; set; }
         public Uri Details { get; set; }
+        public List<Tag> Tags { get; set; }
     }
 }

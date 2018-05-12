@@ -54,6 +54,5 @@ namespace RusfootballMobile.ViewModels
                 Busy.IsBusy = false;
             }
         }
-
     }
 }

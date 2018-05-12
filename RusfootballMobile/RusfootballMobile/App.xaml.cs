@@ -1,18 +1,13 @@
-﻿using System;
-
-using RusfootballMobile.Views;
+﻿using RusfootballMobile.Views;
 using Xamarin.Forms;
 
 namespace RusfootballMobile
 {
 	public partial class App : Application
 	{
-
 		public App ()
 		{
 			InitializeComponent();
-
-
             MainPage = new MainPage();
         }
 

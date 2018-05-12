@@ -1,4 +1,6 @@
-﻿using RusfootballMobile.Logging;
+﻿using System;
+using RusfootballMobile.Logging;
+using RusfootballMobile.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using RusfootballMobile.ViewModels;
@@ -8,7 +10,7 @@ namespace RusfootballMobile.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ShortStoriesItemsPage
     {
-	    private readonly ShortStoriesItemsVM _viewModel;
+	    private ShortStoriesItemsVM _viewModel;
         private readonly ILogger _logger = LoggerFactory.GetLogger<ShortStoriesItemsPage>();
 
         public ShortStoriesItemsPage()
@@ -48,6 +50,14 @@ namespace RusfootballMobile.Views
 	        {
 	            _viewModel.LoadMoreItemsCommand.Execute(null);
             }
+        }
+
+        private void Button_OnClicked(object sender, EventArgs e)
+        {
+            var context = (Tag) ((Button) sender).BindingContext;
+            BindingContext = _viewModel = new ShortStoriesItemsVM(context.Uri.ToString());
+            Title = "Главная: " + context.Text;
+            OnAppearing();
         }
     }
 }

@@ -9,4 +9,10 @@ namespace RusfootballMobile.Models
         public Uri Details { get; set; }
         public bool IsStrong { get; set; }
     }
+
+    public class Tag
+    {
+        public string Text { get; set; }
+        public Uri Uri { get; set; }
+    }
 }

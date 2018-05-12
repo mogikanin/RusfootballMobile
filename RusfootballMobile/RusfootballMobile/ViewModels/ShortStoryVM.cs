@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using RusfootballMobile.Models;
 
 namespace RusfootballMobile.ViewModels
@@ -25,5 +26,7 @@ namespace RusfootballMobile.ViewModels
         }
 
         public Uri Image => IsAppeared ? ((ShortStory)Item).Image : null;
+        public bool HasTags => (((ShortStory) Item).Tags?.Any()).GetValueOrDefault(false);
+        public bool HasImage => ((ShortStory) Item).Image != null;
     }
 }

@@ -1,5 +1,4 @@
 ﻿using RusfootballMobile.Logging;
-using RusfootballMobile.Models;
 using RusfootballMobile.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:custom="clr-namespace:RusfootballMobile.Views.Custom;assembly=RusfootballMobile"
              x:Class="RusfootballMobile.Views.ShortStoriesItemsPage"
              Title="Главная">
     <ContentPage.Content>
@@ -22,7 +23,9 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
+
                                 <Label Grid.Row="0"
                                        Text="{Binding Path=Item.Title, Mode=OneTime}" 
                                        LineBreakMode="WordWrap" 
@@ -33,13 +36,33 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0" Source="{Binding Path=Image, Mode=OneWay}" Margin="10,5" VerticalOptions="Start"/>
+
+                                    <Image Grid.Column="0" Source="{Binding Path=Image, Mode=OneWay}" Margin="10,5" VerticalOptions="Start"
+                                           IsVisible="{Binding Path=HasImage, Mode=OneTime}"/>
                                     <Label Grid.Column="1" Text="{Binding Path=Item.Text, Mode=OneTime}" 
                                            LineBreakMode="WordWrap"
                                            Style="{DynamicResource ListItemDetailTextStyle}"/>
                                 </Grid>
 
-                                <Grid Grid.Row="2">
+                                <Grid Grid.Row="2" IsVisible="{Binding Path=HasTags, Mode=OneTime}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="Теги:" Margin="0,5,0,0"/>
+                                    <custom:WrapLayout Grid.Column="1" ItemsSource="{Binding Path=Item.Tags, Mode=OneTime}"  Orientation="Horizontal" Spacing="0" >
+                                        <custom:WrapLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <custom:EnhancedButton Text="{Binding Text, Mode=OneTime}" BackgroundColor="Transparent" TextColor="LightSkyBlue"
+                                                                       Padding="15"
+                                                                       Clicked="Button_OnClicked"/>
+                                            </DataTemplate>
+                                        </custom:WrapLayout.ItemTemplate>
+                                    </custom:WrapLayout>
+                                </Grid>
+
+                                <Grid Grid.Row="3">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>

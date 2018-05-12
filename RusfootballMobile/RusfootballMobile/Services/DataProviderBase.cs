@@ -16,11 +16,11 @@ namespace RusfootballMobile.Services
 
         protected DataProviderBase(string host)
         {
-            Host = host;
+            Host = new Uri(host);
             _logger = LoggerFactory.GetLogger(GetType());
         }
 
-        protected string Host { get; }
+        protected Uri Host { get; }
         protected abstract IEnumerable<T> ParseItems(HtmlDocument document);
 
         public async Task GetItemsAsync(bool nextPage, Action<T> onNewItem)
@@ -28,14 +28,15 @@ namespace RusfootballMobile.Services
             string html = null;
             try
             {
-                var host = Host;
+                Uri host;
                 if (nextPage)
                 {
                     _page++;
-                    host += $"/page/{_page}/";
+                    host = new Uri(Host, $"page/{_page}/");
                 }
                 else
                 {
+                    host = Host;
                     _page = 1;
                 }
 

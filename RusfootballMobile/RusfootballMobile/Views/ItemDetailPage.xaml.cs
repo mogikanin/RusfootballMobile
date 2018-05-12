@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using System.Text;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using RusfootballMobile.ViewModels;
 
@@ -8,6 +10,7 @@ namespace RusfootballMobile.Views
 	public partial class ItemDetailPage
 	{
 	    private readonly ItemDetailVM _viewModel;
+	    private bool _isDetailsLoaded;
 
         public ItemDetailPage(ItemDetailVM viewModel)
         {
@@ -20,17 +23,38 @@ namespace RusfootballMobile.Views
 	    {
             base.OnAppearing();
 
+            if (_isDetailsLoaded) return;
+
             var details = await _viewModel.GetDetails();
-	        var htmlSource = new HtmlWebViewSource {Html = details};
-	        WebView.Source = htmlSource;
-        }
+	        _isDetailsLoaded = !string.IsNullOrEmpty(details);
+	        if (_isDetailsLoaded)
+	        {
+	            var htmlSource = new HtmlWebViewSource {Html = details};
+	            WebView.Source = htmlSource;
+	        }
+	    }
 
         private void WebView_OnNavigating(object sender, WebNavigatingEventArgs e)
 	    {
 	        if (e.NavigationEvent != WebNavigationEvent.Refresh)
 	        {
-	            e.Cancel = true;
-	        }
+                // https://www.rusfootball.info/engine/go.php?url=aHR0cHM6Ly93d3cuZmNrcmFzbm9kYXIucnUv
+                e.Cancel = true;
+
+	            var uri = new Uri(e.Url);
+	            Uri navigateUri;
+                if (e.Url.StartsWith("https://www.rusfootball.info/engine/go.php?url="))
+	            {
+                    var queries = System.Web.HttpUtility.ParseQueryString(uri.Query);
+	                navigateUri = new Uri(Encoding.UTF8.GetString(Convert.FromBase64String(queries.Get("url"))));
+	            }
+                else
+                {
+                    // todo: Handle rusfootball tags
+                    navigateUri = uri;
+                }
+                Device.OpenUri(navigateUri);
+            }
 	    }
 	}
 }

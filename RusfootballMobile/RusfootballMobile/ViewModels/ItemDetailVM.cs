@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using RusfootballMobile.Models;
 using RusfootballMobile.Services;
+using Xamarin.Forms;
 
 namespace RusfootballMobile.ViewModels
 {
@@ -12,8 +14,13 @@ namespace RusfootballMobile.ViewModels
         public ItemDetailVM(StoryBaseVM item)
         {
             _item = item;
+            CommandOpenSource = new Command((Action)delegate
+            {
+                Device.OpenUri(Story.Details);
+            });
         }
 
+        public Command CommandOpenSource { get; }
         public BusyObject Busy { get; } = new BusyObject();
 
         private IStory Story => _item.Item;
@@ -34,6 +41,5 @@ namespace RusfootballMobile.ViewModels
         }
 
         public string Title => Story.Title;
-        public string Address => Story.Details.ToString();
     }
 }

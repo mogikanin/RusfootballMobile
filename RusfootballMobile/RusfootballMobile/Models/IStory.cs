@@ -7,4 +7,11 @@ namespace RusfootballMobile.Models
         Uri Details { get; }
         string Title { get; }
     }
+
+    [Flags]
+    public enum StoryAttributes
+    {
+        None = 0,
+        Read = 1
+    }
 }

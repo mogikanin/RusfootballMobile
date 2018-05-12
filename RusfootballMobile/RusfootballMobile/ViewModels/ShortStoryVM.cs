@@ -3,18 +3,14 @@ using RusfootballMobile.Models;
 
 namespace RusfootballMobile.ViewModels
 {
-    public class ShortStoryVM : ViewModelBase
+    public class ShortStoryVM : StoryBaseVM
     {
         private bool _isAppeared;
 
         public ShortStoryVM(ShortStory item, int index)
+            : base(item, index)
         {
-            Item = item;
-            Index = index;
         }
-
-        public ShortStory Item { get; }
-        public int Index { get; }
 
         public bool IsAppeared
         {
@@ -28,6 +24,6 @@ namespace RusfootballMobile.ViewModels
             }
         }
 
-        public Uri Image => IsAppeared ? Item.Image : null;
+        public Uri Image => IsAppeared ? ((ShortStory)Item).Image : null;
     }
 }

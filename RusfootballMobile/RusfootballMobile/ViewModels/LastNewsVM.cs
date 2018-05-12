@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using RusfootballMobile.Models;
+﻿using RusfootballMobile.Models;
 
 namespace RusfootballMobile.ViewModels
 {
-    public class LastNewsVM : ViewModelBase
+    public class LastNewsVM : StoryBaseVM
     {
         public LastNewsVM(LastNews item, int index)
+            : base(item, index)
         {
-            Item = item;
-            Index = index;
         }
-
-        public LastNews Item { get; }
-        public int Index { get; }
     }
 }

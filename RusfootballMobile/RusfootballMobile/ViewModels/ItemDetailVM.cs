@@ -7,20 +7,25 @@ namespace RusfootballMobile.ViewModels
     public class ItemDetailVM : ViewModelBase
     {
         private readonly IStoryDetailsExtractor _storyDetailsExtractor = new StoryDetailsExtractor();
-        private readonly IStory _item;
+        private readonly StoryBaseVM _item;
 
-        public ItemDetailVM(IStory item)
+        public ItemDetailVM(StoryBaseVM item)
         {
             _item = item;
         }
 
         public BusyObject Busy { get; } = new BusyObject();
+
+        private IStory Story => _item.Item;
         public async Task<string> GetDetails()
         {
             Busy.IsBusy = true;
             try
             {
-                return await _storyDetailsExtractor.GetDetails(_item);
+                var details = await _storyDetailsExtractor.GetDetails(Story);
+                Story.SetAttribute(StoryAttributes.Read);
+                _item.RaiseAttributesChanged();
+                return details;
             }
             finally 
             {
@@ -28,7 +33,7 @@ namespace RusfootballMobile.ViewModels
             }
         }
 
-        public string Title => _item.Title;
-        public string Address => _item.Details.ToString();
+        public string Title => Story.Title;
+        public string Address => Story.Details.ToString();
     }
 }

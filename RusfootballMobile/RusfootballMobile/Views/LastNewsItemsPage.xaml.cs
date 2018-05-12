@@ -21,10 +21,10 @@ namespace RusfootballMobile.Views
 
 	    private async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
 	    {
-	        if (!(args.SelectedItem is LastNewsVM item))
+	        if (!(args.SelectedItem is StoryBaseVM item))
 	            return;
 
-	        await Navigation.PushAsync(new ItemDetailPage(new ItemDetailVM(item.Item)));
+	        await Navigation.PushAsync(new ItemDetailPage(new ItemDetailVM(item)));
 
 	        // Manually deselect item.
 	        ItemsListView.SelectedItem = null;

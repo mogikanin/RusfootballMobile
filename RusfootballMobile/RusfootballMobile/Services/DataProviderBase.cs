@@ -32,7 +32,7 @@ namespace RusfootballMobile.Services
                 if (nextPage)
                 {
                     _page++;
-                    host = new Uri(Host, $"page/{_page}/");
+                    host = new Uri(Host + $"/page/{_page}/");
                 }
                 else
                 {

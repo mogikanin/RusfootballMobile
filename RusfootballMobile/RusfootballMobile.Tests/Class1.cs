@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HtmlAgilityPack;
+﻿using System.Threading.Tasks;
 using NUnit.Framework;
 using RusfootballMobile.Services;
 
@@ -16,7 +11,7 @@ namespace RusfootballMobile.Tests
         public async Task Test()
         {
             var store = new LastNewsProvider();
-            //var res = await store.GetItemsAsync(false);
+            await store.GetItemsAsync(true, delegate {  });
         }
     }
 }

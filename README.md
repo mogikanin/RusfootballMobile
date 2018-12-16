@@ -1,4 +1,5 @@
-# Rusfootball Mobile / Мобильный клиент для сайта rusfootball.info
+# Rusfootball Mobile 
+## Мобильный клиент для сайта rusfootball.info
 
 Неофициальный мобильный клиент для сайта rusfootball.info.
 Основные возможности:
@@ -8,5 +9,7 @@
 
 Приложение написано на C# и Xamarin. Работает на Android, iOS и UWP.
 Смотри [скриншоты](/Screenshots) для подробностей.
+
+В папке [Build](/Build) доступны билды для скачивания.
 
 © 2018 Max Miroshnikov. All Rights Reserved.

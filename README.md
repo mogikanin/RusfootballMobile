@@ -10,6 +10,6 @@
 Приложение написано на C# и Xamarin. Работает на Android, iOS и UWP.
 Смотри [скриншоты](/Screenshots) для подробностей.
 
-В папке [Build](/Build) доступны билды для скачивания.
+Релизы доступны по [ссылке](https://github.com/mogikanin/RusfootballMobile/releases).
 
 © 2018 Max Miroshnikov. All Rights Reserved.
